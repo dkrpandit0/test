@@ -63,7 +63,7 @@
 
   <!-- Button visible only on mobile -->
   <button
-    class="px-4 py-2 bg-blue-600 text-white rounded md:hidden"
+    class="px-4 py-2 bg-blue-600 text-white rounded
     @click="showReplaceDrawer = true; drawerProductIndex = 0; isAddItemsMode = false">
     Open Replace Drawer1
   </button>
@@ -71,7 +71,7 @@
   <!-- Drawer visible only on mobile -->
   <div
     x-show="showReplaceDrawer && (drawerProductIndex !== null || isAddItemsMode)"
-    class="fixed inset-0 z-50 flex items-end justify-center bg-black/30 md:hidden"
+    class="fixed inset-0 z-50 flex items-end justify-center bg-black/30 "
     style="display: none;"
   >
     <div
