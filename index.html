@@ -1,129 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Replace Drawer</title>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-   <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('drawerComponent', () => ({
-                showReplaceDrawer: false,
-                drawerProductIndex: null,
-                isAddItemsMode: false,
-                replaceInput: '',
+  <meta charset="UTF-8" />
+  <title>Mobile Replace Drawer1</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-                addItemsFromDrawer() {
-                    alert("Items Added: " + this.replaceInput);
-                    this.replaceInput = '';
-                    this.showReplaceDrawer = false;
-                },
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('drawerComponent', () => ({
+        showReplaceDrawer: false,
+        drawerProductIndex: null,
+        isAddItemsMode: false,
+        replaceInput: '',
 
-                addReplacementToCart() {
-                    alert("Replacement Added: " + this.replaceInput);
-                    this.replaceInput = '';
-                    this.showReplaceDrawer = false;
-                },
+        addItemsFromDrawer() {
+          alert("Items Added: " + this.replaceInput);
+          this.replaceInput = '';
+          this.showReplaceDrawer = false;
+        },
 
-                removeAdditionalItem() {
-                    alert("Additional Item Removed");
-                },
+        addReplacementToCart() {
+          alert("Replacement Added: " + this.replaceInput);
+          this.replaceInput = '';
+          this.showReplaceDrawer = false;
+        },
 
-                removeReplaceItem() {
-                    alert("Replacement Removed");
-                }
-            }))
-        })
-    </script>
+        removeAdditionalItem() {
+          alert("Additional Item Removed");
+        },
 
-    <style>
-        .border-container-darker {
-            border-color: #ccc;
+        removeReplaceItem() {
+          alert("Replacement Removed");
         }
+      }))
+    })
+  </script>
 
-        .bg-container-darker-shade2 {
-            background-color: #4b5563; /* dark gray */
-        }
+  <style>
+    .border-container-darker {
+      border-color: #ccc;
+    }
 
-        .text-container-darker-shade2 {
-            color: #4b5563;
-        }
+    .bg-container-darker-shade2 {
+      background-color: #4b5563;
+    }
 
-        .text-16to20 {
-            font-size: 16px;
-        }
+    .text-container-darker-shade2 {
+      color: #4b5563;
+    }
 
-        .text-14to16 {
-            font-size: 14px;
-        }
-    </style>
+    .text-16to20 {
+      font-size: 16px;
+    }
+
+    .text-14to16 {
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body class="bg-gray-100 p-4" x-data="drawerComponent()">
 
-    <button
-        class="px-4 py-2 bg-blue-600 text-white rounded"
-        @click="showReplaceDrawer = true; drawerProductIndex = 0; isAddItemsMode = false">
-        Open Replace Drawer
-    </button>
+  <!-- Button visible only on mobile -->
+  <button
+    class="px-4 py-2 bg-blue-600 text-white rounded md:hidden"
+    @click="showReplaceDrawer = true; drawerProductIndex = 0; isAddItemsMode = false">
+    Open Replace Drawer1
+  </button>
 
-    <!-- Drawer -->
+  <!-- Drawer visible only on mobile -->
+  <div
+    x-show="showReplaceDrawer && (drawerProductIndex !== null || isAddItemsMode)"
+    class="fixed inset-0 z-50 flex items-end justify-center bg-black/30 md:hidden"
+    style="display: none;"
+  >
     <div
-        x-show="showReplaceDrawer && (drawerProductIndex !== null || isAddItemsMode)"
-        class="fixed inset-0 z-50 flex items-end justify-center bg-black/30 bg-opacity-30"
-        style="display: none;"
+      class="bg-white rounded-t-2xl shadow-lg w-full max-w-md mx-auto relative p-4"
+      x-transition:enter="transition transform duration-300"
+      x-transition:enter-start="translate-y-full opacity-0"
+      x-transition:enter-end="translate-y-0 opacity-100"
+      x-transition:leave="transition transform duration-200"
+      x-transition:leave-start="translate-y-0 opacity-100"
+      x-transition:leave-end="translate-y-full opacity-0"
     >
-        <div
-            class="bg-white rounded-t-2xl shadow-lg w-full max-w-md mx-auto relative p-4"
-            x-transition:enter="transition transform duration-300"
-            x-transition:enter-start="translate-y-full opacity-0"
-            x-transition:enter-end="translate-y-0 opacity-100"
-            x-transition:leave="transition transform duration-200"
-            x-transition:leave-start="translate-y-0 opacity-100"
-            x-transition:leave-end="translate-y-full opacity-0"
+      <div class="flex items-center mb-2">
+        <button
+          @click="showReplaceDrawer = false"
+          class="text-gray-400 hover:text-gray-600 font-bold text-3xl"
         >
-            <div class="flex items-center mb-2">
-                <button
-                    @click="showReplaceDrawer = false"
-                    class="text-gray-400 hover:text-gray-600 font-bold text-3xl"
-                >
-                    ✕
-                </button>
-                <h2 class="text-lg font-bold text-gray-900 flex-1 text-center"
-                    x-text="isAddItemsMode ? '🛍 Add items' : 'Palitan ang item'">
-                </h2>
-            </div>
+          ✕
+        </button>
+        <h2 class="text-lg font-bold text-gray-900 flex-1 text-center"
+          x-text="isAddItemsMode ? '🛍 Add items' : 'Palitan ang item'"></h2>
+      </div>
 
-            <div class="text-14to16 text-gray-500 mb-4 text-center"
-                 x-text="isAddItemsMode ? 'Ilista rito at idadagdag sa order kung available' : 'Ipapalit ito kung available'"></div>
+      <div class="text-14to16 text-gray-500 mb-4 text-center"
+        x-text="isAddItemsMode ? 'Ilista rito at idadagdag sa order kung available' : 'Ipapalit ito kung available'">
+      </div>
 
-            <textarea
-                class="w-full border-container-darker border rounded-lg p-3 text-sm mb-4"
-                rows="6"
-                placeholder="Quantity - Product"
-                x-model="replaceInput"
-            ></textarea>
+      <textarea
+        class="w-full border-container-darker border rounded-lg p-3 text-sm mb-4"
+        rows="6"
+        placeholder="Quantity - Product"
+        x-model="replaceInput"
+      ></textarea>
 
-            <button
-                class="w-full py-4 rounded-full font-semibold text-16to20 transition mb-2"
-                :class="[
-                    isAddItemsMode || !isAddItemsMode ? 'bg-container-darker-shade2 text-white' : 'bg-gray-400 text-white',
-                    !replaceInput.trim() ? 'opacity-50 cursor-not-allowed' : ''
-                ]"
-                @click="isAddItemsMode ? addItemsFromDrawer() : addReplacementToCart()"
-                :disabled="!replaceInput.trim()"
-            >
-                <span x-text="isAddItemsMode ? 'Add to cart' : 'Add to cart'"></span>
-            </button>
+      <button
+        class="w-full py-4 rounded-full font-semibold text-16to20 transition mb-2"
+        :class="[
+          isAddItemsMode || !isAddItemsMode ? 'bg-container-darker-shade2 text-white' : 'bg-gray-400 text-white',
+          !replaceInput.trim() ? 'opacity-50 cursor-not-allowed' : ''
+        ]"
+        @click="isAddItemsMode ? addItemsFromDrawer() : addReplacementToCart()"
+        :disabled="!replaceInput.trim()"
+      >
+        <span x-text="isAddItemsMode ? 'Add to cart' : 'Add to cart'"></span>
+      </button>
 
-            <button
-                x-show="replaceInput.trim().length > 0"
-                x-transition
-                class="w-full py-4 rounded-full font-semibold text-16to20 transition text-container-darker-shade2"
-                @click="isAddItemsMode ? removeAdditionalItem() : removeReplaceItem(); replaceInput = ''; showReplaceDrawer = false"
-            >
-                <span x-text="isAddItemsMode ? 'Remove' : 'Remove replacement'"></span>
-            </button>
-        </div>
+      <button
+        x-show="replaceInput.trim().length > 0"
+        x-transition
+        class="w-full py-4 rounded-full font-semibold text-16to20 transition text-container-darker-shade2"
+        @click="isAddItemsMode ? removeAdditionalItem() : removeReplaceItem(); replaceInput = ''; showReplaceDrawer = false"
+      >
+        <span x-text="isAddItemsMode ? 'Remove' : 'Remove replacement'"></span>
+      </button>
     </div>
+  </div>
+
 </body>
 </html>
